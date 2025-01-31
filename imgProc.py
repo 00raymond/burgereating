@@ -1,3 +1,5 @@
+import random
+
 import cv2 as cv
 import dlib
 from imutils import face_utils
@@ -5,19 +7,28 @@ from imutils import face_utils
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
-currBurgerPos = (0, 0)
+# set currburger to global
 currBurger = None
+currBurgerPos = None
 
 
 def check_wraps_burger(lips):
+
+    global currBurgerPos
+
+    if not lips:
+        return
+
     # check if lips wrap around the burger
-    return
+    for lip in lips:
 
+        result = cv.pointPolygonTest(lip, currBurgerPos, False)
 
-def generate_burger(frame):
-    # spawn a random point on the screen.
-    # this point will be the center of the burger.
-    # put the burger.png image on the screen at that point.
+        if result >= 0:
+            print("Burger wrapped by lips!")
+            currBurgerPos = None
+            break
+
     return
 
 
@@ -38,12 +49,18 @@ def get_lips(frame):
 
 def img_process(frame):
 
+    global currBurgerPos
+
     lips = get_lips(frame)
 
-    if currBurger is None:
-        generate_burger(frame)
+    if currBurgerPos is None:
+        h, w = frame.shape[:2]
+        # pick a random position for the burger
+        currBurgerPos = (random.randint(20, w-20), random.randint(20, h-20))
     else:
         check_wraps_burger(lips)
+
+    cv.circle(frame, currBurgerPos, 10, (255, 0, 0), -1)
 
     for lip in lips:
         for point in lip:
