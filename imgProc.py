@@ -5,6 +5,21 @@ from imutils import face_utils
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
+currBurgerPos = (0, 0)
+currBurger = None
+
+
+def check_wraps_burger(lips):
+    # check if lips wrap around the burger
+    return
+
+
+def generate_burger(frame):
+    # spawn a random point on the screen.
+    # this point will be the center of the burger.
+    # put the burger.png image on the screen at that point.
+    return
+
 
 # we only need lip landmarks. these are landmarks 48-68
 def get_lips(frame):
@@ -22,10 +37,13 @@ def get_lips(frame):
 
 
 def img_process(frame):
+
     lips = get_lips(frame)
 
-    if len(lips) == 0:
-        return
+    if currBurger is None:
+        generate_burger(frame)
+    else:
+        check_wraps_burger(lips)
 
     for lip in lips:
         for point in lip:
