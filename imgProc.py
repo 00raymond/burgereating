@@ -25,7 +25,7 @@ def check_wraps_burger(lips):
         result = cv.pointPolygonTest(lip, currBurgerPos, False)
 
         if result >= 0:
-            print("Burger wrapped by lips!")
+            print("Burger eaten.")
             currBurgerPos = None
             break
 
@@ -56,7 +56,7 @@ def img_process(frame):
     if currBurgerPos is None:
         h, w = frame.shape[:2]
         # pick a random position for the burger
-        currBurgerPos = (random.randint(20, w-20), random.randint(20, h-20))
+        currBurgerPos = (random.randint(70, w-70), random.randint(70, h-70))
     else:
         check_wraps_burger(lips)
 
