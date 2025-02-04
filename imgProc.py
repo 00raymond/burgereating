@@ -18,7 +18,7 @@ def check_wraps(lips):
     if not lips:
         return
 
-    # check if lips wrap around the burger
+    # check if lips wrap around the point
     for lip in lips:
 
         result = cv.pointPolygonTest(lip, currPointPos, False)
@@ -54,7 +54,7 @@ def img_process(frame):
 
     if currPointPos is None:
         h, w = frame.shape[:2]
-        # pick a random position for the burger
+        # pick a random position for the point
         currPointPos = (random.randint(70, w-70), random.randint(70, h-70))
     else:
         check_wraps(lips)
