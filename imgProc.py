@@ -7,14 +7,13 @@ from imutils import face_utils
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
-# set currburger to global
-currBurger = None
-currBurgerPos = None
+currPoint = None
+currPointPos = None
 
 
-def check_wraps_burger(lips):
+def check_wraps(lips):
 
-    global currBurgerPos
+    global currPointPos
 
     if not lips:
         return
@@ -22,11 +21,11 @@ def check_wraps_burger(lips):
     # check if lips wrap around the burger
     for lip in lips:
 
-        result = cv.pointPolygonTest(lip, currBurgerPos, False)
+        result = cv.pointPolygonTest(lip, currPointPos, False)
 
         if result >= 0:
             print("Burger eaten.")
-            currBurgerPos = None
+            currPointPos = None
             break
 
     return
@@ -49,18 +48,18 @@ def get_lips(frame):
 
 def img_process(frame):
 
-    global currBurgerPos
+    global currPointPos
 
     lips = get_lips(frame)
 
-    if currBurgerPos is None:
+    if currPointPos is None:
         h, w = frame.shape[:2]
         # pick a random position for the burger
-        currBurgerPos = (random.randint(70, w-70), random.randint(70, h-70))
+        currPointPos = (random.randint(70, w-70), random.randint(70, h-70))
     else:
-        check_wraps_burger(lips)
+        check_wraps(lips)
 
-    cv.circle(frame, currBurgerPos, 10, (255, 0, 0), -1)
+    cv.circle(frame, currPointPos, 10, (255, 0, 0), -1)
 
     for lip in lips:
         for point in lip:
