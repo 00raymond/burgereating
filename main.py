@@ -4,7 +4,7 @@ import numpy as np
 from imgProc import img_process
 
 dpg.create_context()
-dpg.create_viewport(title='Burger Eating', width=600, height=800)
+dpg.create_viewport(title='Pacman Simulator IRL', width=600, height=800)
 dpg.setup_dearpygui()
 
 vid = cv.VideoCapture(0)
