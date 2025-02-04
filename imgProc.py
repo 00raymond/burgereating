@@ -24,7 +24,7 @@ def check_wraps(lips):
         result = cv.pointPolygonTest(lip, currPointPos, False)
 
         if result >= 0:
-            print("Burger eaten.")
+            print("Point eaten.")
             currPointPos = None
             break
 
