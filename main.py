@@ -64,5 +64,4 @@ while dpg.is_dearpygui_running():
     dpg.render_dearpygui_frame()
 
 vid.release()
-# cv.destroyAllWindows() # when using upen cv window "imshow" call this also
 dpg.destroy_context()
